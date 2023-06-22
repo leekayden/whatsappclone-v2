@@ -1,4 +1,3 @@
-import EmojiPicker from "emoji-picker-react";
 import {
   addDoc,
   collection,

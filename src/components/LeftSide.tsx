@@ -130,7 +130,7 @@ export default memo(function LeftSide({
                   />
                 </svg>
                 <p className="font-semibold cursor-pointer  text-green">
-                  Add a new friend
+                  New Chat
                 </p>
               </div>
             }

@@ -12,13 +12,9 @@ import {
 } from "firebase/auth";
 import { LoginType } from "../core/types";
 import {
-  addDoc,
-  collection,
   doc,
   getDoc,
-  serverTimestamp,
   setDoc,
-  updateDoc,
 } from "firebase/firestore";
 
 export default function Login() {

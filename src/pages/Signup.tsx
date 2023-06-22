@@ -11,12 +11,8 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import {
-  addDoc,
-  collection,
   doc,
-  serverTimestamp,
   setDoc,
-  updateDoc,
 } from "firebase/firestore";
 import { BirthdayDate, SignUpType } from "../core/types";
 
