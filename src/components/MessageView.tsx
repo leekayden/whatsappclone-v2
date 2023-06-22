@@ -44,19 +44,21 @@ export default function MessageView({
         setLoading(false);
       });
   }, [idUser]);
-  const handleKeyPress = (event: KeyboardEvent) => {
-    if (event.key === "Escape") {
-        setSelectedChatRoom('');
-    }
-  };
 
   useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedChatRoom("");
+      }
+    };
+
     window.addEventListener("keydown", handleKeyPress);
 
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, []);
+  }, [setSelectedChatRoom]);
+  
   if (!user?.name.includes(searchValue)) {
     return <></>;
   }
