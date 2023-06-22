@@ -106,7 +106,7 @@ export default memo(function LeftSide({
         </div>
         <div>
           <p className="mt-4 indent-2 font-semibold">
-            You logged in as
+            You are logged in as
             <span className="text-green hover:underline"> {displayName}</span>
           </p>
         </div>
