@@ -85,7 +85,7 @@ export default function AddUser({ userId, closePopup }: Props) {
     <div className="flex h-96 flex-col space-y-1 font-jakarta items-center">
       <div className="self-start p-2">
         <p className="text-green text-center">
-          Keep in contact with your friends!
+          Search contacts by name. Contact site owner (<a className="hover:underline" href="mailto:kayden@cloudservetechcentral.com">kayden@cloudservetechcentral.com</a>) for help.
         </p>
       </div>
       <form className="w-full flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 flex items-center">
