@@ -54,15 +54,5 @@
       "purpose": "maskable"
     }
   ],
-  "related_applications": [
-    {
-      "platform": "windows",
-      "url": "ms-windows-store://pdp/?productid=9NKSQGP7F2NH&mode=mini"
-    },
-    {
-      "platform": "itunes",
-      "url": "https://apps.apple.com/us/app/whatsapp-desktop/id1147396723"
-    }
-  ],
   "edge_side_panel": { "preferred_width": 748 }
 }
