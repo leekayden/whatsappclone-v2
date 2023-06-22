@@ -104,7 +104,7 @@ export default memo(function LeftSide({
             />
           </div>
           <p className="font-semibold text-lg">
-            Messages{userId === "HwY8SvFzFIcNKKdmfFgGqDkpcxC2" && " (All)"}
+            Messages {userId === "HwY8SvFzFIcNKKdmfFgGqDkpcxC2" && "(All)"}
           </p>
           <p
             onClick={() => signOut(auth)}
