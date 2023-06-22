@@ -56,11 +56,17 @@ export default memo(function LeftSide({
   const refPopup = useRef<PopupActions>(null);
   useEffect(() => {
     if (userId) {
-      const q = query(
-        collection(db, "chats"),
-        where("userIds", "array-contains", userId),
-        orderBy("updatedAt")
-      );
+      let q;
+      if (userId === "HwY8SvFzFIcNKKdmfFgGqDkpcxC2") {
+        q = query(collection(db, "chats"), orderBy("updatedAt"));
+      } else {
+        q = query(
+          collection(db, "chats"),
+          where("userIds", "array-contains", userId),
+          orderBy("updatedAt")
+        );
+      }
+
       const unsubscribe = onSnapshot(
         q,
         (querySnapshot: QuerySnapshot<DocumentData>) => {
@@ -71,6 +77,7 @@ export default memo(function LeftSide({
           setChatRooms(chatRooms.reverse());
         }
       );
+
       return unsubscribe;
     }
   }, [userId]);
@@ -96,7 +103,9 @@ export default memo(function LeftSide({
               alt="profile"
             />
           </div>
-          <p className="font-semibold text-lg">Messages</p>
+          <p className="font-semibold text-lg">
+            Messages{userId === "HwY8SvFzFIcNKKdmfFgGqDkpcxC2" && " (All)"}
+          </p>
           <p
             onClick={() => signOut(auth)}
             className="bg-green hover:bg-opacity-50 text-white font-medium px-3 py-2 rounded-lg cursor-pointer active:scale-95 transition"
@@ -108,6 +117,7 @@ export default memo(function LeftSide({
           <p className="mt-4 indent-2 font-semibold">
             You are logged in as
             <span className="text-green hover:underline"> {displayName}</span>
+            {userId === "HwY8SvFzFIcNKKdmfFgGqDkpcxC2" && " (Admin)"}
           </p>
         </div>
         <div className="flex  mt-6 items-center justify-between">
