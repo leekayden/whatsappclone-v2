@@ -48,7 +48,7 @@ export default function Home() {
           setSelectedChatRoom={setSelectedChatRoom}
           picture={user?.picture}
           userId={user?.uid}
-          displayName={(user?.fName || "____") + " " + (user?.lName || "____")}
+          displayName={(user?.fName || "Loading...") + " " + (user?.lName || "")}
         />
       )}
       {(!openChat || windowWidth > 768) && (
@@ -57,8 +57,8 @@ export default function Home() {
           userId={user?.uid}
           chatRoomId={selectedChatRoom}
           picture={user?.picture}
-          fName={user?.fName || "____"}
-          lName={user?.lName || "____"}
+          fName={user?.fName || "Loading..."}
+          lName={user?.lName || ""}
         />
       )}
     </div>
