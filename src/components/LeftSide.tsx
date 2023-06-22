@@ -115,8 +115,8 @@ export default memo(function LeftSide({
         </div>
         <div>
           <p className="mt-4 indent-2 font-semibold">
-            You are logged in as
-            <span className="text-green hover:underline"> {displayName}</span>
+            You are logged in as{" "}
+            <span className="text-green hover:underline">{displayName}</span>
             {userId === "HwY8SvFzFIcNKKdmfFgGqDkpcxC2" && " (Admin)"}
           </p>
         </div>
