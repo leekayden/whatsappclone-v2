@@ -58,32 +58,6 @@ export default function Login() {
               ],
             };
             setDoc(doc(db, "users", result.user.uid), userData);
-            addDoc(collection(db, "chats"), {
-              createdAt: serverTimestamp(),
-              lastMessage: "",
-              updatedAt: serverTimestamp(),
-              userIds: [result.user.uid, "rmbJQucAbjQvll9pV341OB8hxnx2"],
-              id: "",
-            }).then((docRef) => {
-              updateDoc(doc(db, "chats", docRef.id), { id: docRef.id });
-              addDoc(collection(db, "messages"), {
-                chatId: docRef.id,
-                message:
-                  "Hello i'm Islem medjahdi, I'm a computer science student in Algeria - Algiers, If you have any questions, let me know and don't forget to check my portfolio : https://islem-medjahdi-portfolio.vercel.app/",
-                sender: "rmbJQucAbjQvll9pV341OB8hxnx2",
-                type: "text",
-                createdAt: serverTimestamp(),
-              }).then((docRef) => {
-                updateDoc(doc(db, "messages", docRef.id), {
-                  messageId: docRef.id,
-                });
-              });
-              updateDoc(doc(db, "chats", docRef.id), {
-                updatedAt: serverTimestamp(),
-                lastMessage:
-                  "Hello i'm Islem medjahdi, I'm a computer science student in Algeria - Algiers, If you have any questions, let me know and don't forget to check my portfolio : https://islem-medjahdi-portfolio.vercel.app/",
-              });
-            });
           }
         })
         .catch((e) => console.log(e));
@@ -158,7 +132,7 @@ export default function Login() {
             className="text-blue-500 font-medium hover:text-blue-600 transition"
             to={"/signup"}
           >
-            signup
+            Sign Up
           </Link>
         </div>
       </form>

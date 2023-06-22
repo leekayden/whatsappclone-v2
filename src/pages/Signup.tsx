@@ -21,6 +21,10 @@ import {
 import { BirthdayDate, SignUpType } from "../core/types";
 
 export default function Signup() {
+  const currentDate = new Date();
+  const day = currentDate.getDate();
+  const month = currentDate.getMonth() + 1;
+  const year = currentDate.getFullYear();
   const navigate = useNavigate();
   const [openCalendar, setOpenCalendar] = useState<boolean>(false);
   const calendarRef = useRef<HTMLDivElement>(null);
@@ -32,7 +36,7 @@ export default function Signup() {
     email: "",
     password: "",
     confirmPassword: "",
-    birthday: { day: 5, month: 6, year: 2002 },
+    birthday: { day: day, month: month, year: year },
   });
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -85,32 +89,6 @@ export default function Signup() {
             ],
           };
           setDoc(doc(db, "users", user.user.uid), userData);
-          addDoc(collection(db, "chats"), {
-            createdAt: serverTimestamp(),
-            lastMessage: "",
-            updatedAt: serverTimestamp(),
-            userIds: [user.user.uid, "rmbJQucAbjQvll9pV341OB8hxnx2"],
-            id: "",
-          }).then((docRef) => {
-            updateDoc(doc(db, "chats", docRef.id), { id: docRef.id });
-            addDoc(collection(db, "messages"), {
-              chatId: docRef.id,
-              message:
-                "Hello i'm Islem medjahdi, I'm a computer science student in Algeria - Algiers, If you have any questions, let me know and don't forget to check my portfolio : https://islem-medjahdi-portfolio.vercel.app/",
-              sender: "rmbJQucAbjQvll9pV341OB8hxnx2",
-              type: "text",
-              createdAt: serverTimestamp(),
-            }).then((docRef) => {
-              updateDoc(doc(db, "messages", docRef.id), {
-                messageId: docRef.id,
-              });
-            });
-            updateDoc(doc(db, "chats", docRef.id), {
-              updatedAt: serverTimestamp(),
-              message:
-                "Hello i'm Islem medjahdi, I'm a computer science student in Algeria - Algiers, If you have any questions, let me know and don't forget to check my portfolio : https://islem-medjahdi-portfolio.vercel.app/",
-            });
-          });
         })
         .catch((e) => setError(e.code))
         .finally(() => setLoading(false));
@@ -259,7 +237,7 @@ export default function Signup() {
           )}
         </form>
         <div className="flex mt-5 justify-center whitespace-nowrap items-center  space-x-2">
-          <p>You already have an account? </p>
+          <p>Already have an account?</p>
           <Link
             className="text-blue-500 font-medium whitespace-nowrap hover:text-blue-600 transition"
             to={"/login"}
