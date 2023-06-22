@@ -44,6 +44,19 @@ export default function MessageView({
         setLoading(false);
       });
   }, [idUser]);
+  const handleKeyPress = (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+        setSelectedChatRoom('');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
   if (!user?.name.includes(searchValue)) {
     return <></>;
   }
@@ -73,8 +86,7 @@ export default function MessageView({
                 selectedChatRoom === chatRoom ? "text-white" : "text-green"
               } whitespace-nowrap truncate text-sm`}
             >
-              Last Message: {lastMessage.substring(0, 10)}{" "}
-              {lastMessage.length > 10 && "..."}
+              {lastMessage.substring(0, 10)} {lastMessage.length > 10 && "..."}
             </p>
           )}
         </div>

@@ -14,6 +14,11 @@ export default function MessageForm({
   loading,
   newMessage,
 }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current!.focus();
+  }, []);
   const [openPicker, setOpenPicker] = useState(false);
   const pickerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -37,10 +42,11 @@ export default function MessageForm({
       className="px-4 shadow-md py-2 w-full bg-gray-50 flex border-2 border-green rounded-xl"
     >
       <input
+        ref={inputRef}
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
         className="outline-none w-full px-4 py-2 bg-transparent font-medium"
-        placeholder="Enter a Message"
+        placeholder="Type a message"
       />
       <div ref={pickerRef} className="flex space-x-2 items-center">
         <div className="relative">
