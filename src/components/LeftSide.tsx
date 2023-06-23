@@ -61,13 +61,13 @@ export default memo(function LeftSide({
     if (userId) {
       let q;
       // if (userId === adminUID) {
-        // q = query(collection(db, "chats"), orderBy("updatedAt"));
+      // q = query(collection(db, "chats"), orderBy("updatedAt"));
       // } else {
-        q = query(
-          collection(db, "chats"),
-          where("userIds", "array-contains", userId),
-          orderBy("updatedAt")
-        );
+      q = query(
+        collection(db, "chats"),
+        where("userIds", "array-contains", userId),
+        orderBy("updatedAt")
+      );
       // }
 
       const unsubscribe = onSnapshot(
@@ -109,7 +109,7 @@ export default memo(function LeftSide({
           <p className="font-semibold text-lg">
             Messages{" "}
             {userId === adminUID && (
-              <span className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+              <span className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-greenlight bg-green rounded-full">
                 ADMIN
               </span>
             )}
@@ -123,8 +123,16 @@ export default memo(function LeftSide({
         </div>
         <div>
           <p className="mt-4 indent-2 font-semibold">
-            You are logged in as{" "}
-            <span className="text-green hover:underline">{displayName}</span>
+            {displayName !== "Loading... " ? (
+              <div>
+                You are logged in as{" "}
+                <span className="text-green hover:underline">
+                  {displayName}
+                </span>
+              </div>
+            ) : (
+              <div className="text-green hover:underline">Fetching...</div>
+            )}
           </p>
         </div>
         <div className="flex  mt-6 items-center justify-between">
@@ -146,7 +154,7 @@ export default memo(function LeftSide({
                     clipRule="evenodd"
                   />
                 </svg>
-                <p className="font-semibold cursor-pointer  text-green">
+                <p className="font-semibold cursor-pointer text-green">
                   New Chat
                 </p>
               </div>
@@ -197,21 +205,45 @@ export default memo(function LeftSide({
               <div className="h-4 w-14 rounded-sm bg-gray-300" />
             </div>
           ))}
-        {chatRooms?.map((item: chatRoom) => (
-          <MessageView
-            setOpen={setOpen}
-            selectedChatRoom={selectedChatRoom}
-            setSelectedChatRoom={setSelectedChatRoom}
-            chatRoom={item.id}
-            key={item.id}
-            idUser={
-              item.userIds[0] !== userId ? item.userIds[0] : item.userIds[1]
+        {chatRooms && chatRooms.length > 0 ? (
+          chatRooms.map((item: chatRoom) => (
+            <MessageView
+              setOpen={setOpen}
+              selectedChatRoom={selectedChatRoom}
+              setSelectedChatRoom={setSelectedChatRoom}
+              chatRoom={item.id}
+              key={item.id}
+              idUser={
+                item.userIds[0] !== userId ? item.userIds[0] : item.userIds[1]
+              }
+              lastUpdate={
+                (item.updatedAt && timeConverter(item.updatedAt)) || ""
+              }
+              lastMessage={item.lastMessage}
+              searchValue={searchValue.trim()}
+            />
+          ))
+        ) : (
+          <Popup
+            ref={refPopup}
+            contentStyle={{ width: "60%", borderRadius: 10 }}
+            modal={true}
+            trigger={
+              <div>
+                No chats yet. Click{" "}
+                <p className="font-semibold cursor-pointer text-green inline">
+                  here
+                </p>{" "}
+                to start a new chat.
+              </div>
             }
-            lastUpdate={(item.updatedAt && timeConverter(item.updatedAt)) || ""}
-            lastMessage={item.lastMessage}
-            searchValue={searchValue.trim()}
-          />
-        ))}
+          >
+            <AddUser
+              closePopup={() => refPopup.current?.close()}
+              userId={userId || ""}
+            />
+          </Popup>
+        )}
       </div>
     </motion.div>
   );
