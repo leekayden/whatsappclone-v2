@@ -24,5 +24,6 @@ yarn-error.log*
 
 .vercel
 *.cache
-firebase-debug.log
 *.zip
+firebase-debug.log
+.yarn
