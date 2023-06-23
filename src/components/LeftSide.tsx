@@ -20,6 +20,9 @@ import "reactjs-popup/dist/index.css";
 import AddUser from "./AddUser";
 import { motion } from "framer-motion";
 import { PopupActions } from "reactjs-popup/dist/types";
+
+const adminUID = "79rMnG71AXWY9cd9rpdOqTtQlLC3";
+
 function timeConverter(UNIX_timestamp: Timestamp): string {
   const a = new Date(UNIX_timestamp.seconds * 1000);
   return (
@@ -57,15 +60,15 @@ export default memo(function LeftSide({
   useEffect(() => {
     if (userId) {
       let q;
-      if (userId === "HwY8SvFzFIcNKKdmfFgGqDkpcxC2") {
-        q = query(collection(db, "chats"), orderBy("updatedAt"));
-      } else {
+      // if (userId === adminUID) {
+        // q = query(collection(db, "chats"), orderBy("updatedAt"));
+      // } else {
         q = query(
           collection(db, "chats"),
           where("userIds", "array-contains", userId),
           orderBy("updatedAt")
         );
-      }
+      // }
 
       const unsubscribe = onSnapshot(
         q,
@@ -104,7 +107,12 @@ export default memo(function LeftSide({
             />
           </div>
           <p className="font-semibold text-lg">
-            Messages {userId === "HwY8SvFzFIcNKKdmfFgGqDkpcxC2" && "(All)"}
+            Messages{" "}
+            {userId === adminUID && (
+              <span className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+                ADMIN
+              </span>
+            )}
           </p>
           <p
             onClick={() => signOut(auth)}
@@ -117,7 +125,6 @@ export default memo(function LeftSide({
           <p className="mt-4 indent-2 font-semibold">
             You are logged in as{" "}
             <span className="text-green hover:underline">{displayName}</span>
-            {userId === "HwY8SvFzFIcNKKdmfFgGqDkpcxC2" && " (Admin)"}
           </p>
         </div>
         <div className="flex  mt-6 items-center justify-between">
@@ -167,7 +174,7 @@ export default memo(function LeftSide({
             />
           </svg>
           <input
-            className="bg-transparent outline-none  w-full"
+            className="bg-transparent outline-none w-full"
             placeholder="Search"
             onChange={(e) => setSearchValue(e.target.value)}
           />
